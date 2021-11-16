@@ -1,0 +1,52 @@
+Monitor Azure resources from Grafana
+
+
+Prerequisites: Grafana Console operation knowledge and POMQL understanding. 
+
+
+Need to install Grafana and configure Azure monitor data source to connect and conigure Azure monitor dashboard
+
+Install my local grafana on Ubuntu 20.04 ; follow below steps 
+
+sudo apt-get install -y apt-transport-https
+sudo apt-get install -y software-properties-common wget
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+echo "deb https://packages.grafana.com/oss/deb beta main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo apt-get update
+sudo apt-get install grafana
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable grafana-server
+sudo /bin/systemctl start grafana-server
+sudo /bin/systemctl status grafana-server
+
+Grafana is running on port number 3000; To access grafana console from browser use url => http://<host_ip>:3000
+
+Login require admin user ID and Password; edit below file for admin_user and admin_password
+After adding admin_user and admin_password, restart the grafana service
+
+vi /etc/grafana/grafana.ini
+sudo /bin/systemctl restart grafana-server
+
+Now yurr grafana is ready to use; Login and configure data source Azure monitor.
+
+To configure data source for Azure require following details 
+
+client_id="xxxxx-xxxx-xxxx-xxxxxx-xxxxxxxx"
+client_secret=""xxxxx-xxxx-xxxx-xxxxxx-xxxxxxxx""
+tenant_id=""xxxxx-xxxx-xxxx-xxxxxx-xxxxxxxx""
+subscription_id=""xxxxx-xxxx-xxxx-xxxxxx-xxxxxxxx""
+
+Once data sorce is created and tested connection; you are ready for new dashboard for Azure resources (VMs, Storage..etc.)
+
+
+Known Issue-1: 
+
+Issue: briangann-gauge-panel is not available
+Solution: Follow steps below on your grafana server 
+
+# grafana-cli plugins install briangann-gauge-panel
+# sudo /bin/systemctl restart grafana-server
+
+
+
