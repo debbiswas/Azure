@@ -1,1 +1,32 @@
 ## Azure Linux VM not responding and reboot failed 
+Issues : 
+File system filled up 100% (In this case it was /var)
+while try to login from Serial console in Azure getting following Messages ...
+
+[ 2669.103164] systemd-journald[9617]: /dev/kmsg buffer overrun, some messages lost.
+[ 2669.103319] systemd-journald[9617]: Failed to open system journal: No space left on device
+[ 2669.103350] systemd-journald[9617]: Failed to open system journal: No space left on device
+[ 2669.103394] systemd-journald[9617]: Failed to open system journal: No space left on device
+
+Solution: 
+1. Login as single user mode by by edeting grub parameter 
+2. Rebbot VM from Serial console using reboot icon 
+3. Press ESC key while rebooting to go into boot menu 
+4. choose the correct menu and press "e" to edit 
+5. file the kernel line started with linux16 and add init=/bin/bash at end (crtl+e = to go to end of the line)
+6. Save and continue reboot using ctrl+x
+7. will be in # prompt
+
+To change the root password 
+# mount -o remount,rw /
+# passwd root 
+
+If any file system missing then execute follwowing command 
+
+# mount -a 
+
+Clean the require file system and reboot the VM
+
+# exec /sbin/init
+
+
