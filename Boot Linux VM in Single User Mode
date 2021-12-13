@@ -14,7 +14,7 @@ Solution:
 2. Rebbot VM from Serial console using reboot icon 
 3. Press ESC key while rebooting to go into boot menu 
 4. choose the correct menu and press "e" to edit 
-5. file the kernel line started with linux16 and add init=/bin/bash at end (crtl+e = to go to end of the line)
+5. file the kernel line started with linux16 and add init=/bin/bash at end after rootdel/ (crtl+e = to go to end of the line)
 6. Save and continue reboot using ctrl+x
 7. will be in # prompt
 
